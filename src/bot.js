@@ -90,16 +90,16 @@ function helpInfo(channelID) {
       {
         name: 'Free Games Bot Info',
         value: `Currently in ${client.guilds.cache.size} servers.
-                Have any issues or feature requests? Check out the [Github Repo](https://github.com/raksdewji/free-games-discord-bot#readme) `
+                Have any issues or feature requests? Check out the [Github Repo](https://github.com/yazninja/discord-fg-bot#readme) `
       },
       {
         name: 'Add Free Games Bot to another server',
-        value: '[Invite Link](https://discord.com/api/oauth2/authorize?client_id=985786630923239465&permissions=534723950656&scope=bot)'
+        value: '[Invite Link](https://discord.com/api/oauth2/authorize?client_id=985786630923239465&permissions=124992&scope=bot)'
       }
     )
-    .setAuthor('Free Games Bot',
-      'https://raw.githubusercontent.com/raksdewji/free-games-discord-bot/master/assets/bot%20icon.png',
-      'https://github.com/raksdewji/free-games-discord-bot');
+    .setAuthor({name:'Free Games Bot',
+            iconURL:'https://raw.githubusercontent.com/yazninja/discord-fg-bot/main/assets/bot%20icon.png',
+            url: 'https://github.com/yazninja/discord-fg-bot'})
 
   clientChannel.send({embeds: [embedMsg]});
 }
@@ -164,7 +164,7 @@ const getCurrentGames = async (channel, post) => {
           .setURL(`https://www.reddit.com${post[i].data.permalink}`)
           .setDescription(`Free game here: ${post[i].data.url}`)
           .setAuthor({name:'Free Games Bot',
-            iconURL:'https://raw.githubusercontent.com/raksdewji/free-games-discord-bot/master/assets/bot%20icon.png',
+            iconURL:'https://raw.githubusercontent.com/yazninja/discord-fg-bot/main/assets/bot%20icon.png',
             url: 'https://github.com/yazninja/discord-fg-bot'})
           .setImage(thumbnail);
 
