@@ -1,33 +1,50 @@
----
-title: ExpressJS Postgres
-description: An ExpressJS server that connects to a PostgreSQL database
-tags:
-  - express
-  - postgresql
-  - typescript
----
+<h1 align="center">Welcome to Free Games Discord Bot 👋</h1>
 
-# ExpressJS Postgres Example
+<p align="center">
+  <img src="https://raw.githubusercontent.com/yazninja/discord-fg-bot/main/assets/bot%20icon.png" 
+  alt="icon" width="200px" height="200px"/>
+</p>
 
-This example starts an [ExpressJS](https://expressjs.com/) server that connects
-to a Railway PostgreSQL database.
+> Simple Discord bot that uses Reddit api to check /r/GameDeals for new free games posted.
 
-[![Deploy on Railway](https://railway.app/button.svg)](https://railway.app/new?template=https%3A%2F%2Fgithub.com%2Frailwayapp%2Fexamples%2Ftree%2Fmaster%2Fexamples%2Fexpressjs-postgres&plugins=postgresql)
+### ➕ [Add Bot to your Discord Server](https://discord.com/api/oauth2/authorize?client_id=985786630923239465&permissions=534723950656&scope=bot)
 
-## ✨ Features
+## Bot Commands
 
-- Postgres
-- Express
-- TypeScript
+📍 Get information about the bot and commands in the discord channel.  
+```sh
+fgHelp
+```
+📍 Sign up for free game alerts to the channel where command is sent. 
+```sh 
+fgAdd
+```
 
-## 💁‍♀️ How to use
+📍 Remove free game alerts to the channel where command is sent. 
+```sh
+fgRemove
+```
 
-- Install dependencies `yarn`
-- [Create a Railway project with the Postgres plugin](https://dev.new)
-- Connect to your Railway project `railway link`
-- Start the server `railway run yarn dev`
+📍 Check if current channel is receiving game alerts. 
+```sh
+fgActive
+```
 
-## 📝 Notes
+📍 Send a free game.
+```sh
+fgSend
+```
 
-The server started simply returns the current time in the database. The SQL
-query is located in `src/index.js`.
+## Install
+
+> A developer discord bot key will be needed to run locally.
+
+```sh
+yarn install
+```
+
+## Usage
+
+```sh
+yarn dev
+```
