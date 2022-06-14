@@ -66,9 +66,9 @@ const helpInfo = async (message) => {
         .setColor('#0099ff')
         .setDescription('A Simple bot that fetches free games')
         .addFields(
-            { name: 'fgAdd', value: 'Receive free game alerts in the channel', inline: true },
-            { name: 'fgRemove', value: 'Unsubscribe from free game alerts in the channel', inline: true },
-            { name: 'fgActive', value: 'Shows all channels that have game alerts', inline: true },
+            { name: 'fg add', value: 'Receive free game alerts in the channel', inline: true },
+            { name: 'fg remove', value: 'Unsubscribe from free game alerts in the channel', inline: true },
+            { name: 'fg active', value: 'Shows all channels that have game alerts', inline: true },
             { name: 'fg epic', value: 'Get the current and upcoming deals in Epic Games', inline: true },
             { name: 'fg reddit', value: 'Get the free games submitted to /r/GameDeals', inline: true },
             { name: 'fg help', value: 'Shows this help info', inline: true },
