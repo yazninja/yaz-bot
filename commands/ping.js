@@ -10,6 +10,7 @@ export const command = {
         .setRequired(false)
     ),
   execute: async (interaction) => {
+    let show = interaction.options.getBoolean('show') || false;
     let test = Date.now()
     await interaction.reply({ embeds:[{color: "#0099ff", description: "Pinging..."}], ephemeral: !show})
     let embed = new MessageEmbed()
