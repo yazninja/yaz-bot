@@ -16,12 +16,12 @@ for (const file of eventFiles) {
     client.events.push(event);
     consola.info("\x1b[32m%s\x1b[0m", "Registered Event:", event.name);
 }
-const commandFiles = readdirSync('./commands').filter(file => file.endsWith('.js'));
-for (const file of commandFiles) {
-    let { command } = await import (`./commands/${file}`)
-    client.commands.set(command.data.name, command);
-    consola.info("\x1b[32m%s\x1b[0m", "Registered Command:", command.data.name);
-}
+// const commandFiles = readdirSync('./commands').filter(file => file.endsWith('.js'));
+// for (const file of commandFiles) {
+//     let { command } = await import (`./commands/${file}`)
+//     client.commands.set(command.data.name, command);
+//     consola.info("\x1b[32m%s\x1b[0m", "Registered Command:", command.data.name);
+// }
 
 let errorChannel = "972138658230579210";
 
