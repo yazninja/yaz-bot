@@ -1,46 +1,30 @@
 {
-  "name": "free-games-discord-bot",
-  "version": "1.0.0",
+  "name": "discord-fg-bot",
+  "version": "2.0.0",
   "description": "",
   "main": "index.js",
+  "type": "module",
   "scripts": {
-    "start": "node ./src/bot.js",
-    "dev": "cross-env NODE_ENV=development node ./src/bot.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js",
     "lint": "eslint --fix --ext .js ."
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/raksdewji/free-games-discord-bot.git"
+    "url": "git+https://github.com/yazninja/discord-fg-bot.git"
   },
-  "author": "Rakheem Dewji",
-  "license": "ISC",
+  "author": "yazninja",
+  "license": "MIT",
   "bugs": {
-    "url": "https://github.com/raksdewji/free-games-discord-bot/issues"
+    "url": "https://github.com/yazninja/discord-fg-bot/issues"
   },
-  "homepage": "https://github.com/raksdewji/free-games-discord-bot#readme",
+  "homepage": "https://github.com/yazninja/discord-fg-bot#readme",
   "dependencies": {
+    "consola": "^2.15.3",
     "discord.js": "^13.8.0",
     "dotenv": "^16.0.1",
-    "node-fetch": "^2.6.7",
-    "pg": "^8.7.3"
-  },
-  "devDependencies": {
-    "cross-env": "^7.0.3",
-    "eslint": "^8.17.0",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.26.0",
-    "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-only-warn": "^1.0.3",
-    "eslint-plugin-promise": "^6.0.0",
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.1"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "lint-staged": {
-    "*.{js,ts}": "yarn lint"
+    "mongodb": "^4.7.0",
+    "node-fetch": "^3.2.6",
+    "nodemon": "^2.0.16"
   }
 }
