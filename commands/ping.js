@@ -1,6 +1,7 @@
-const { SlashCommandBuilder } = require("@discordjs/builders");
-const { MessageEmbed } = require('discord.js');
-module.exports = {
+import { SlashCommandBuilder } from '@discordjs/builders';
+import { MessageEmbed } from 'discord.js';
+
+export const command = {
   data: new SlashCommandBuilder()
     .setName("ping")
     .setDescription("Get the bots latency!")
