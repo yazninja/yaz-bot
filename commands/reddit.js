@@ -19,7 +19,7 @@ export const command = {
         let show = interaction.options.getBoolean('show') || false;
         let force = interaction.options.getBoolean('force') || false;
         consola.info("[Reddit]", `${interaction.user.tag} requested`);
-        await interaction.reply("Scanning Reddit...");
+        await interaction.reply({ content: "Scanning Reddit...", ephemeral: !show });
         const targetURL = 'https://reddit.com/r/gamedeals/new.json?sort=new&t=week&limit=100';
         let reddit, redditPosts = [], games = [], channels = [];
         mongo.getGamesbyGuildId(interaction.guildId).then(g => {

@@ -14,7 +14,7 @@ export const command = {
     async execute(interaction) {
         let show = interaction.options.getBoolean('show') || false;
         consola.info("[Epic Games]", `${interaction.user.tag} requested`);
-        await interaction.reply("Scanning Epic Games...");
+        await interaction.reply({ content:"Scanning Epic Games...", ephemeral: !show });
         const targetURL = "https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions";
         let currEpicGames = "";
         let nextEpicGames = "";
