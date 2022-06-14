@@ -1,4 +1,8 @@
 <h1 align="center">Free Games Discord Bot</h1>
+<p align="center">
+  <img src="https://img.shields.io/github/package-json/v/yazninja/discord-fg-bot?style=for-the-badge">
+  <img src="https://img.shields.io/github/checks-status/yazninja/discord-fg-bot/main?label=RAILWAY%20STATUS&style=for-the-badge">
+</p>
 
 <p align="center">
   <img src="https://raw.githubusercontent.com/yazninja/discord-fg-bot/main/assets/bot%20icon.png" 
