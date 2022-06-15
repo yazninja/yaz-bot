@@ -1,10 +1,16 @@
-import { Client, Intents, Collection } from 'discord.js';
+import { Client, GatewayIntentBits, Partials, Collection } from 'discord.js';
+const client = new Client({
+    intents: [
+        GatewayIntentBits.Guilds, 
+        GatewayIntentBits.GuildMessages,  
+        GatewayIntentBits.GuildMessageReactions, 
+        GatewayIntentBits.MessageContent
+    ], 
+    partials: [Partials.Channel, Partials.Message, Partials.User, Partials.GuildMember, Partials.Reaction] 
+});
 import consola from 'consola';
 import 'dotenv/config';
 import { mongo } from './integrations/mongo.js';
-const client = new Client({
-    intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_MEMBERS,]
-});
 
 client.commands = new Collection();
 client.events = [];

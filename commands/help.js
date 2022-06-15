@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 
 export const command = {
     data: new SlashCommandBuilder()
@@ -13,7 +13,7 @@ export const command = {
     async execute(interaction) {
         let show = interaction.options.getBoolean('show') || false;
         consola.info("[Help]", `${interaction.user.tag} requested`);
-    const embedMsg = new MessageEmbed()
+    const embedMsg = new EmbedBuilder()
         .setColor('#0099ff')
         .setDescription('A Simple bot that fetches free games')
         .addFields(

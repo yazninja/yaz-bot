@@ -1,5 +1,5 @@
 import consola from 'consola';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import { mongo } from '../integrations/mongo.js';
 import fetch from 'node-fetch';
 
@@ -57,7 +57,7 @@ const sendEpicGames = async (channel) => {
     } catch (err) {
         console.log(err);
     }
-    const embedMsg = new MessageEmbed()
+    const embedMsg = new EmbedBuilder()
         .setColor('#0099ff')
         .setTitle('EpicGames')
         .setFields([{ name: "Current Free Games", value: currEpicGames }, { name: "Upcoming Free Games", value: nextEpicGames }])
@@ -119,7 +119,7 @@ const sendReddit = async (channel) => {
                         } else {
                             thumbnail = reddit[i].data.thumbnail;
                         }
-                        const embedMsg = new MessageEmbed()
+                        const embedMsg = new EmbedBuilder()
                             .setColor('#0099ff')
                             .setTitle(title)
                             .setURL(`https://www.reddit.com${reddit[i].data.permalink}`)

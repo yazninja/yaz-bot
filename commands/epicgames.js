@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import consola from 'consola';
 import fetch from 'node-fetch';
 
@@ -31,7 +31,7 @@ export const command = {
                 }
             }
         } catch (err) { consola.error("[Epic Games]", err); }
-        const embedMsg = new MessageEmbed()
+        const embedMsg = new EmbedBuilder()
             .setColor('#0099ff')
             .setTitle('EpicGames')
             .setFields([{ name: "Current Free Games", value: currEpicGames }, { name: "Upcoming Free Games", value: nextEpicGames }])

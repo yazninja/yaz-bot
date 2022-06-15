@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 
 export const command = {
   data: new SlashCommandBuilder()
@@ -13,7 +13,7 @@ export const command = {
     let show = interaction.options.getBoolean('show') || false;
     let test = Date.now()
     await interaction.reply({ embeds:[{color: "#0099ff", description: "Pinging..."}], ephemeral: !show})
-    let embed = new MessageEmbed()
+    let embed = new EmbedBuilder()
       .setColor("#0099ff")
       .setTitle("Pong!🏓")
       .setDescription(`API: \`${interaction.client.ws.ping}ms\`\nLatency: \`${test - interaction.createdTimestamp}ms\``);

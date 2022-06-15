@@ -1,5 +1,5 @@
 import { SlashCommandBuilder } from '@discordjs/builders';
-import { MessageEmbed } from 'discord.js';
+import { EmbedBuilder } from 'discord.js';
 import { mongo } from '../integrations/mongo.js';
 import consola from 'consola';
 import fetch from 'node-fetch';
@@ -46,7 +46,7 @@ export const command = {
                 for (let post of reddit) {
                     if (regex.test(post.data.title) && (!post.data.id.match(gameRegex) || !interaction.channelId.match(channelRegex))) {
                         if (post.data.ups > 200 && post.data.thumbnail !== 'spoiler') {
-                            const embedMsg = new MessageEmbed()
+                            const embedMsg = new EmbedBuilder()
                                 .setColor('#0099ff')
                                 .setTitle(post.data.title.length > 256 ? post.data.title.substring(0, 256) : post.data.title)
                                 .setURL(`https://www.reddit.com${post.data.permalink}`)
