@@ -38,7 +38,6 @@ client.on('ready', () => {
     client.user.setActivity('fg help', { type: 'LISTENING' });
     
 });
-
 client.login(process.env.bot_token);
 
 client.on('messageCreate', async message => {
