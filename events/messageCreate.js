@@ -8,7 +8,7 @@ export const event = {
     name: "messageCreate",
     async execute(message) {
         if (message.author.bot) return;
-
+        
         switch (message.content) {
             case 'fg add': //Add the channel to list of channels which free games are sent
                 addChannel(message);
