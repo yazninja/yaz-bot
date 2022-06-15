@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, Partials, Collection } from 'discord.js';
+import { Client, GatewayIntentBits, Partials, Collection, ActivityType } from 'discord.js';
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds, 
@@ -35,7 +35,7 @@ client.on('ready', () => {
     consola.success(`Logged in as ${client.user.tag} at ${Date()}`);
     mongo.init();
     client.events.find(e => e.name === 'sendSync').execute(client);
-    client.user.setActivity('fg help', { type: 'LISTENING' });
+    client.user.setActivity('fg help', { type: ActivityType.Listening });
     
 });
 client.login(process.env.bot_token);
