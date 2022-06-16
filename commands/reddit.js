@@ -47,7 +47,7 @@ export const command = {
                     if (regex.test(post.data.title) && (!post.data.id.match(gameRegex) || !interaction.channelId.match(channelRegex))) {
                         if (post.data.ups > 200 && post.data.thumbnail !== 'spoiler') {
                             const embedMsg = new EmbedBuilder()
-                                .setColor('#0099ff')
+                                .setColor('Random')
                                 .setTitle(post.data.title.length > 256 ? post.data.title.substring(0, 256) : post.data.title)
                                 .setURL(`https://www.reddit.com${post.data.permalink}`)
                                 .setDescription(`Free game here: ${post.data.url}`)

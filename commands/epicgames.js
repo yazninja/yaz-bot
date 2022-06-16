@@ -32,7 +32,7 @@ export const command = {
             }
         } catch (err) { consola.error("[Epic Games]", err); }
         const embedMsg = new EmbedBuilder()
-            .setColor('#0099ff')
+            .setColor('Random')
             .setTitle('EpicGames')
             .setFields([{ name: "Current Free Games", value: currEpicGames }, { name: "Upcoming Free Games", value: nextEpicGames }])
             .setTimestamp()

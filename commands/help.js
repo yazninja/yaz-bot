@@ -14,7 +14,7 @@ export const command = {
         let show = interaction.options.getBoolean('show') || false;
         consola.info("[Help]", `${interaction.user.tag} requested`);
     const embedMsg = new EmbedBuilder()
-        .setColor('#0099ff')
+        .setColor('Random')
         .setDescription('A Simple bot that fetches free games')
         .addFields(
             { name: 'fg add', value: 'Receive free game alerts in the channel', inline: true },

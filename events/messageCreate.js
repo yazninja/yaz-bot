@@ -52,7 +52,7 @@ const sendEpicGames = async (message) => {
         console.log(err);
     }
     const embedMsg = new EmbedBuilder()
-        .setColor('#0099ff')
+        .setColor('Random')
         .setTitle('EpicGames')
         .setFields([{ name: "Current Free Games", value: currEpicGames }, { name: "Upcoming Free Games", value: nextEpicGames }])
         .setTimestamp()
@@ -63,7 +63,7 @@ const sendEpicGames = async (message) => {
 const helpInfo = async (message) => {
     consola.info("[Help]", `${message.author.tag} requested`);
     const embedMsg = new EmbedBuilder()
-        .setColor('#0099ff')
+        .setColor('Random')
         .setDescription('A Simple bot that fetches free games')
         .addFields(
             { name: 'fg add', value: 'Receive free game alerts in the channel', inline: true },
@@ -132,7 +132,7 @@ const sendReddit = async (message) => {
                             thumbnail = reddit[i].data.thumbnail;
                         }
                         const embedMsg = new EmbedBuilder()
-                            .setColor('#0099ff')
+                            .setColor('Random')
                             .setTitle(title)
                             .setURL(`https://www.reddit.com${reddit[i].data.permalink}`)
                             .setDescription(`Free game here: ${reddit[i].data.url}`)

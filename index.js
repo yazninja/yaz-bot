@@ -1,4 +1,4 @@
-import { Client, GatewayIntentBits, Partials, Collection, ActivityType } from 'discord.js';
+import { Client, GatewayIntentBits, Partials, Collection, ActivityType, resolveColor } from 'discord.js';
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds, 
@@ -45,15 +45,15 @@ client.on('messageCreate', async message => {
 });
 
 client.on('interactionCreate', async interaction => {
-    if (interaction.isCommand()) {
+    if (interaction.isChatInputCommand()) {
         const command = client.commands.get(interaction.commandName);
         if (!command) return;
         try {
             await command.execute(interaction);
         } catch (error) {
             consola.error(error);
-            await interaction.reply({ title: "Error", content: 'There was an error while executing this command!', ephemeral: true });
-            let errorEmbed = { color: "#ff0000", title: "Error", description: `${error.name}`, fields: [{ name: 'Message', value: `${error.message}` }, { name: 'Origin', value: `${error.stack}` }] }
+            await interaction.reply({ title: resolveColor('Red'), content: 'There was an error while executing this command!', ephemeral: true });
+            let errorEmbed = { color: ColorResolvable.Red, title: "Error", description: `${error.name}`, fields: [{ name: 'Message', value: `${error.message}` }, { name: 'Origin', value: `${error.stack}` }] }
             await interaction.member.guild.channels.cache.get(errorChannel).send({ content: `There was an error executing ${interaction.commandName}`, embeds: [errorEmbed] })
         }
     }
@@ -61,12 +61,12 @@ client.on('interactionCreate', async interaction => {
 process.on('unhandledRejection', error => {
     consola.error(error);
     consola.error(error.stack);
-    let errorEmbed = { color: "#ff0000", title: "Error", description: `${error.name}`, fields: [{ name: 'Message', value: `${error.message}` }, { name: 'Origin', value: `${error.stack}` }] }
+    let errorEmbed = { color: resolveColor('Red'), title: "Error", description: `${error.name}`, fields: [{ name: 'Message', value: `${error.message}` }, { name: 'Origin', value: `${error.stack}` }] }
     client.channels.cache.get(errorChannel).send({ content: `Unhandled Rejection`, embeds: [errorEmbed] })
 });
 process.on('uncaughtException', error => {
     consola.error(error);
     consola.error(error.stack);
-    let errorEmbed = { color: "#ff0000", title: "Error", description: `${error.name}`, fields: [{ name: 'Message', value: `${error.message}` }, { name: 'Origin', value: `${error.stack}` }] }
+    let errorEmbed = { color: resolveColor('Red'), title: "Error", description: `${error.name}`, fields: [{ name: 'Message', value: `${error.message}` }, { name: 'Origin', value: `${error.stack}` }] }
     client.channels.cache.get(errorChannel).send({ content: `Uncaught Exception`, embeds: [errorEmbed] })
 });
