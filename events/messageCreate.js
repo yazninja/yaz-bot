@@ -183,7 +183,7 @@ const activeChannels = async (message) => {
     consola.info("[Active Channels]", `${message.author.tag} requested in ${message.channel.name}`);
     try{
         let channels = await mongo.getSyncChannels(message.guildId);
-        if (channels.length > 0) {
+        if (channels != null && channels.length > 0) {
             let channelList = channels.map(channel => `<#${channel}>`).join('\n');
             message.reply(`The following channels are currently subscribed to free game alerts:\n${channelList}`);
         } else {

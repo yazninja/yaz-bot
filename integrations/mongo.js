@@ -31,7 +31,8 @@ export const mongo = {
     async getSyncChannels(guildId) {
         try {
             const guild = await client.db('fgbot').collection('sync').findOne({ id: guildId })
-            return guild.channels
+            if(guild) return guild.channels
+            return null;
         } catch (e) {
             consola.error("\x1b[33m%s\x1b[0m", '[mongo]', 'Not Available. \n' + e)
         }
