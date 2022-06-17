@@ -24,15 +24,15 @@ export const event = {
                 }
                 consola.info("[DEBUG]", `Found ${channels.length} channels`);
                 for (let channel of channels) {
-                    sendReddit(channel);
+                    await sendReddit(channel);
                 }
-                var date = new Date();
                 if (date.getDay() === 4 && date.getHours() === 8) { // every thursday at 8am
                     for (let channel of channels) {
-                        sendEpicGames(channel);
+                        await sendEpicGames(channel);
                     }
                 }
             }
+            guilds = [], channels = [];
         }, 60000); // every minute
     }
 }
@@ -137,7 +137,7 @@ const sendReddit = async (channel) => {
             }
             consola.info("[Reddit]", `Found ${redditPosts.length} posts`);
             if (redditPosts.length > 0) {
-                await channel.send({ content: `Found ${redditPosts.length} games`, embeds: redditPosts });
+                await channel.send({ content: `New Games found!`, embeds: redditPosts });
             }
         }
     } catch (err) {
