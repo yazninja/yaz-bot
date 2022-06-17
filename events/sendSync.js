@@ -10,7 +10,7 @@ export const event = {
 
         setInterval(async () => {
             var date = new Date();
-            if (date.getMinutes === 0) { // every hour
+            if (date.getMinutes() === 0) { // every hour
                 const mongoGuilds = await mongo.getSyncGuilds();
                 for (const guild of mongoGuilds) {
                     guilds.push(client.guilds.cache.get(guild.id));
@@ -27,7 +27,7 @@ export const event = {
                     sendReddit(channel);
                 }
                 var date = new Date();
-                if (date.getDay === 4 && date.getHours() === 8) { // every thursday at 8am
+                if (date.getDay() === 4 && date.getHours() === 8) { // every thursday at 8am
                     for (let channel of channels) {
                         sendEpicGames(channel);
                     }
