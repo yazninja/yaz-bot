@@ -36,6 +36,11 @@ export const command = {
             .setTitle('EpicGames')
             .setFields([{ name: "Current Free Games", value: currEpicGames }, { name: "Upcoming Free Games", value: nextEpicGames }])
             .setTimestamp()
+            .setAuthor({
+                name: 'FreeGamesBot',
+                iconURL: 'https://raw.githubusercontent.com/yazninja/discord-fg-bot/main/assets/bot%20icon.png',
+                url: 'https://github.com/yazninja/discord-fg-bot'
+            });
         await interaction.editReply({ content: " ", embeds: [embedMsg], ephemeral: !show });
         consola.success("[Epic Games]", `Sent to ${interaction.user.tag} at ${interaction.channel.name}`);
     }

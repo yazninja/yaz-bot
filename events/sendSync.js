@@ -6,13 +6,13 @@ import fetch from 'node-fetch';
 export const event = {
     name: 'sendSync',
     async execute(client) {
-        const guilds = [], channels = [];
-
+        let guilds = [], channels = [];
         setInterval(async () => {
             var date = new Date();
             if (date.getMinutes() === 0) { // every hour
                 const mongoGuilds = await mongo.getSyncGuilds();
-                for (const guild of mongoGuilds) {
+
+                for (let guild of mongoGuilds) {
                     guilds.push(client.guilds.cache.get(guild.id));
                 }
                 consola.info("[DEBUG]", `Found ${guilds.length} guilds`);
@@ -62,6 +62,11 @@ const sendEpicGames = async (channel) => {
         .setTitle('EpicGames')
         .setFields([{ name: "Current Free Games", value: currEpicGames }, { name: "Upcoming Free Games", value: nextEpicGames }])
         .setTimestamp()
+        .setAuthor({
+            name: 'FreeGamesBot',
+            iconURL: 'https://raw.githubusercontent.com/yazninja/discord-fg-bot/main/assets/bot%20icon.png',
+            url: 'https://github.com/yazninja/discord-fg-bot'
+        });
     await channel.send({ embeds: [embedMsg] });
     consola.success("[Epic Games]", `Automatically Sent to ${channel.name}`);
 };
