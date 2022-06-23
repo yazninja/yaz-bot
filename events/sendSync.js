@@ -26,7 +26,7 @@ export const event = {
                 for (let channel of channels) {
                     await sendReddit(channel);
                 }
-                if (date.getDay() === 4 && date.getHours() === 8) { // every thursday at 8am
+                if (date.getDay() === 4 && date.getHours() === 15) { // every thursday at 8am
                     for (let channel of channels) {
                         await sendEpicGames(channel);
                     }
