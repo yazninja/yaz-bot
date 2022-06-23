@@ -48,9 +48,9 @@ const sendEpicGames = async (channel) => {
         if (body.data) {
             for (let element of body.data.Catalog.searchStore.elements) {
                 if (element.promotions && element.promotions.promotionalOffers.length > 0) {
-                    currEpicGames += `[${element.title}](https://store.epicgames.com/en-US/p/${element.productSlug}) | Ends:<t:${Date.parse(element.promotions.promotionalOffers[0].promotionalOffers[0].endDate) / 1000}:R>\n`;
+                    currEpicGames += `[${element.title}](https://store.epicgames.com/en-US/p/${element.catalogNs.mappings[0].pageSlug}) | Ends:<t:${Date.parse(element.promotions.promotionalOffers[0].promotionalOffers[0].endDate) / 1000}:R>\n`;
                 } else if (element.promotions && element.promotions.upcomingPromotionalOffers.length > 0) {
-                    nextEpicGames += `[${element.title}](https://store.epicgames.com/en-US/p/${element.productSlug}) | Starts:<t:${Date.parse(element.promotions.upcomingPromotionalOffers[0].promotionalOffers[0].startDate) / 1000}:R>\n`;
+                    nextEpicGames += `[${element.title}](https://store.epicgames.com/en-US/p/${element.catalogNs.mappings[0].pageSlug}) | Starts:<t:${Date.parse(element.promotions.upcomingPromotionalOffers[0].promotionalOffers[0].startDate) / 1000}:R>\n`;
                 }
             }
         }
