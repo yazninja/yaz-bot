@@ -51,7 +51,7 @@ export const command = {
                                 .setTitle(post.data.title.length > 256 ? post.data.title.substring(0, 256) : post.data.title)
                                 .setURL(`https://www.reddit.com${post.data.permalink}`)
                                 .setDescription(`Free game here: ${post.data.url}`)
-                                .setImage(post.data.thumbnail === 'default' ? 'https://www.reddit.com/static/noimage.png' : post.data.thumbnail)
+                                .setImage(post.data.thumbnail === 'default' || post.data.thumbnail === 'self' ? 'https://www.reddit.com/static/noimage.png' : post.data.thumbnail)
                                 .setAuthor({
                                     name: 'FreeGamesBot',
                                     iconURL: 'https://raw.githubusercontent.com/yazninja/discord-fg-bot/main/assets/bot%20icon.png',

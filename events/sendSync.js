@@ -119,7 +119,7 @@ const sendReddit = async (channel) => {
                             title = title.substring(0, 256);
                         }
                         let thumbnail;
-                        if (reddit[i].data.thumbnail === 'default') { // no thumbnail from reddit
+                        if (reddit[i].data.thumbnail === 'default' || reddit[i].data.thumbnail === 'self') { // no thumbnail from reddit
                             thumbnail = 'https://www.reddit.com/static/noimage.png';
                         } else {
                             thumbnail = reddit[i].data.thumbnail;
