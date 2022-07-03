@@ -46,12 +46,13 @@ export const command = {
                 for (let post of reddit) {
                     if (regex.test(post.data.title) && (!post.data.id.match(gameRegex) || !interaction.channelId.match(channelRegex))) {
                         if (post.data.ups > 200 && post.data.thumbnail !== 'spoiler') {
+                            // consola.log("[Reddit]", `Found post: ${post.data.thumbnail}`);
                             const embedMsg = new EmbedBuilder()
                                 .setColor('Random')
                                 .setTitle(post.data.title.length > 256 ? post.data.title.substring(0, 256) : post.data.title)
                                 .setURL(`https://www.reddit.com${post.data.permalink}`)
                                 .setDescription(`Free game here: ${post.data.url}`)
-                                .setImage(post.data.thumbnail === 'default' || post.data.thumbnail === 'self' ? 'https://www.reddit.com/static/noimage.png' : post.data.thumbnail)
+                                .setImage(post.data.thumbnail === 'default' || post.data.thumbnail === 'self' || post.data.thumbnail === 'nsfw' ? 'https://www.reddit.com/static/noimage.png' : post.data.thumbnail)
                                 .setAuthor({
                                     name: 'FreeGamesBot',
                                     iconURL: 'https://raw.githubusercontent.com/yazninja/discord-fg-bot/main/assets/bot%20icon.png',
