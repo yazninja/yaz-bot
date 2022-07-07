@@ -52,6 +52,20 @@ export const mongo = {
         } catch (e) {
             consola.error("\x1b[33m%s\x1b[0m", '[mongo]', 'Not Available. \n' + e)
         }
+    },
+    async setValoPatch(valoUID){
+        try {
+            await client.db('fgbot').collection('valo').updateOne({}, { $set: { currpatch: valoUID } }, { upsert: true })
+        } catch (e) {
+            consola.error("\x1b[33m%s\x1b[0m", '[mongo]', 'Not Available. \n' + e)
+        }
+    },
+    async getValoPatch() {
+        try {
+            let patch = await client.db('fgbot').collection('valo').findOne()
+            return patch.currpatch
+        } catch (e) {
+            consola.error("\x1b[33m%s\x1b[0m", '[mongo]', 'Not Available. \n' + e)
+        }
     }
-
 }

@@ -6,10 +6,16 @@ import fetch from 'node-fetch';
 export const event = {
     name: 'sendSync',
     async execute(client) {
-        let guilds = [], channels = [];
+        let guilds = [], channels = [], sendValo = false;
         setInterval(async () => {
             var date = new Date();
             if (date.getMinutes() === 0) { // every hour
+                let res = fetch("https://playvalorant.com/page-data/en-us/news/tags/patch-notes/page-data.json")
+                res = await sendValo.json();
+                if (res.result) {
+                    if (res.result.data.articles.nodes[0] === await mongo.getValoPatch())
+                        sendValo = true;
+                } else { consola.error("[SendSync]", "Valorant servers ofline") }
                 const mongoGuilds = await mongo.getSyncGuilds();
 
                 for (let guild of mongoGuilds) {
@@ -26,13 +32,18 @@ export const event = {
                 for (let channel of channels) {
                     await sendReddit(channel);
                 }
+                if (sendValo) {
+                    for (let channel of channels) {
+                        await sendValorantPatch(channel);
+                    }
+                }
                 if (date.getDay() === 4 && date.getHours() === 15) { // every thursday at 8am
                     for (let channel of channels) {
                         await sendEpicGames(channel);
                     }
                 }
             }
-            guilds = [], channels = [];
+            guilds = [], channels = [], sendValo = false;
         }, 60000); // every minute
     }
 }
@@ -148,4 +159,35 @@ const sendReddit = async (channel) => {
     } catch (err) {
         consola.error("[Reddit]", err);
     }
-}
+};
+
+const sendValorantPatch = async (channel) => {
+    consola.info("[Valorant]", `Automatic sync requested at ${channel.name}`);
+    const targetURL = "https://playvalorant.com/page-data/en-us/news/tags/patch-notes/page-data.json";
+    try {
+        let res = await fetch(targetURL);
+        res = await res.json();
+        if (res.result) {
+            mongo.getValoPatch();
+            let currpatch = res.result.data.articles.nodes[0];
+            if (currpatch.uid === await mongo.getValoPatch()) {
+                consola.info("[Valorant]", `${interaction.user.tag} already has the latest patch`);
+            }
+            else {
+                const embedMsg = new EmbedBuilder()
+                    .setColor('Random')
+                    .setTitle(currpatch.title)
+                    .setURL(`https://playvalorant.com/en-us${currpatch.url.url}`)
+                    .setDescription(currpatch.description)
+                    .setTimestamp()
+                    .setImage(currpatch.banner.url)
+                    .setAuthor({
+                        name: 'Valorant',
+                        iconURL: 'https://logos-download.com/wp-content/uploads/2021/01/Valorant_Logo.png',
+                        url: 'https://playvalorant.com/en-us/'
+                    });
+                await interaction.editReply({ content: "[VALORANT] New Patch Detected", embeds: [embedMsg], ephemeral: !show });
+            }
+        }
+    } catch (err) { consola.error("[Valorant]", err); }
+};
