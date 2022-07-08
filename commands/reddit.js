@@ -30,7 +30,7 @@ export const command = {
             let res = await fetch(targetURL)
             res = await res.json();
             if (!res.data) { consola.warn("[Reddit]", `No posts found`); interaction.reply({ content: "No posts found", ephemeral: true }); return; }
-            else if (!res.data.children || res.data.children <= 0) { consola.warn("[Reddit]", `Invalid response`); interaction.reply({ content: "Invalid response from reddit", ephemeral:true }); return; }
+            else if (!res.data.children || res.data.children <= 0) { consola.warn("[Reddit]", `Invalid response`); interaction.reply({ content: "Invalid response from reddit", ephemeral: true }); return; }
             else {
                 reddit = res.data.children;
                 consola.success("[Reddit]", `Found ${reddit.length} posts`);
@@ -43,29 +43,27 @@ export const command = {
                 }
                 for (let post of reddit) {
                     if (regex.test(post.data.title) && (!post.data.id.match(gameRegex) || !interaction.channelId.match(channelRegex))) {
-                        if (post.data.ups > 200 && post.data.thumbnail !== 'spoiler') {
-                            // consola.log("[Reddit]", `Found post: ${post.data.thumbnail}`);
-                            const embedMsg = new EmbedBuilder()
-                                .setColor('Random')
-                                .setTitle(post.data.title.length > 256 ? post.data.title.substring(0, 256) : post.data.title)
-                                .setURL(`https://www.reddit.com${post.data.permalink}`)
-                                .setDescription(`Free game here: ${post.data.url}`)
-                                .setImage(post.data.thumbnail === 'default' || post.data.thumbnail === 'self' || post.data.thumbnail === 'nsfw' ? 'https://www.reddit.com/static/noimage.png' : post.data.thumbnail)
-                                .setAuthor({
-                                    name: 'FreeGamesBot',
-                                    iconURL: 'https://raw.githubusercontent.com/yazninja/discord-fg-bot/main/assets/bot%20icon.png',
-                                    url: 'https://github.com/yazninja/discord-fg-bot'
-                                });
-                            await mongo.addGame(post.data.id, interaction.guildId, interaction.channelId);
-                            redditPosts.push(embedMsg);
-                        }
+                        // consola.log("[Reddit]", `Found post: ${post.data.thumbnail}`);
+                        const embedMsg = new EmbedBuilder()
+                            .setColor('Random')
+                            .setTitle(post.data.title.length > 256 ? post.data.title.substring(0, 256) : post.data.title)
+                            .setURL(`https://www.reddit.com${post.data.permalink}`)
+                            .setDescription(`Free game here: ${post.data.url}`)
+                            .setImage(post.data.thumbnail === 'default' || post.data.thumbnail === 'self' || post.data.thumbnail === 'nsfw' ? 'https://www.reddit.com/static/noimage.png' : post.data.thumbnail)
+                            .setAuthor({
+                                name: 'FreeGamesBot',
+                                iconURL: 'https://raw.githubusercontent.com/yazninja/discord-fg-bot/main/assets/bot%20icon.png',
+                                url: 'https://github.com/yazninja/discord-fg-bot'
+                            });
+                        await mongo.addGame(post.data.id, interaction.guildId, interaction.channelId);
+                        redditPosts.push(embedMsg);
                     }
                 }
                 consola.info("[Reddit]", `Found ${redditPosts.length} posts`);
                 if (redditPosts.length > 0) {
                     await interaction.editReply({ content: `Found ${redditPosts.length} games`, embeds: redditPosts, ephemeral: !show });
                 } else {
-                    await interaction.editReply({content: `No new games found\n> To show all games, use the \`force\` option`, ephemeral: true});
+                    await interaction.editReply({ content: `No new games found\n> To show all games, use the \`force\` option`, ephemeral: true });
                 }
             }
         } catch (err) { consola.error("[Reddit]", err); }
