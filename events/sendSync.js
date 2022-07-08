@@ -11,7 +11,7 @@ export const event = {
             var date = new Date();
             if (date.getMinutes() === 0) { // every hour
                 let res = fetch("https://playvalorant.com/page-data/en-us/news/tags/patch-notes/page-data.json")
-                res = await sendValo.json();
+                res = await res.json();
                 if (res.result) {
                     if (res.result.data.articles.nodes[0] === await mongo.getValoPatch())
                         sendValo = true;

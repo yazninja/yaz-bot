@@ -1,5 +1,4 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { EmbedBuilder, Colors, resolveColor } from 'discord.js';
+import { SlashCommandBuilder, EmbedBuilder, resolveColor } from 'discord.js';
 
 export const command = {
   data: new SlashCommandBuilder()

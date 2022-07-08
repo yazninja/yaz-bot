@@ -1,7 +1,5 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
-import { EmbedBuilder } from 'discord.js';
+import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 import { mongo } from '../integrations/mongo.js';
-import consola from 'consola';
 import fetch from 'node-fetch';
 
 export const command = {
