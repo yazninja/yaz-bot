@@ -34,7 +34,7 @@ export const command = {
             else {
                 reddit = res.data.children;
                 consola.success("[Reddit]", `Found ${reddit.length} posts`);
-                let regex = new RegExp("(free|100%)", "gi");
+                let regex = new RegExp("^(?=.*100%)(?=.*free).*$", "gi");
                 let gameRegex = /(?=a)b/;
                 let channelRegex = /(?=a)b/;
                 if (games.length > 0 && !force) {
@@ -43,20 +43,22 @@ export const command = {
                 }
                 for (let post of reddit) {
                     if (regex.test(post.data.title) && (!post.data.id.match(gameRegex) || !interaction.channelId.match(channelRegex))) {
-                        // consola.log("[Reddit]", `Found post: ${post.data.thumbnail}`);
-                        const embedMsg = new EmbedBuilder()
-                            .setColor('Random')
-                            .setTitle(post.data.title.length > 256 ? post.data.title.substring(0, 256) : post.data.title)
-                            .setURL(`https://www.reddit.com${post.data.permalink}`)
-                            .setDescription(`Free game here: ${post.data.url}`)
-                            .setImage(post.data.thumbnail === 'default' || post.data.thumbnail === 'self' || post.data.thumbnail === 'nsfw' ? 'https://www.reddit.com/static/noimage.png' : post.data.thumbnail)
-                            .setAuthor({
-                                name: 'FreeGamesBot',
-                                iconURL: 'https://raw.githubusercontent.com/yazninja/discord-fg-bot/main/assets/bot%20icon.png',
-                                url: 'https://github.com/yazninja/discord-fg-bot'
-                            });
-                        await mongo.addGame(post.data.id, interaction.guildId, interaction.channelId);
-                        redditPosts.push(embedMsg);
+                        if (post.data.link_flair_text !== 'Expired') {
+                            consola.log("[Reddit]", `Found post: ${post.data.thumbnail}`);
+                            const embedMsg = new EmbedBuilder()
+                                .setColor('Random')
+                                .setTitle(post.data.title.length > 256 ? post.data.title.substring(0, 256) : post.data.title)
+                                .setURL(`https://www.reddit.com${post.data.permalink}`)
+                                .setDescription(`Free game here: ${post.data.url}`)
+                                .setImage(post.data.thumbnail === 'default' || post.data.thumbnail === 'self' || post.data.thumbnail === 'nsfw' || post.data.thumbnail === 'spoiler' ? 'https://www.reddit.com/static/noimage.png' : post.data.thumbnail)
+                                .setAuthor({
+                                    name: 'FreeGamesBot',
+                                    iconURL: 'https://raw.githubusercontent.com/yazninja/discord-fg-bot/main/assets/bot%20icon.png',
+                                    url: 'https://github.com/yazninja/discord-fg-bot'
+                                });
+                            await mongo.addGame(post.data.id, interaction.guildId, interaction.channelId);
+                            redditPosts.push(embedMsg);
+                        }
                     }
                 }
                 consola.info("[Reddit]", `Found ${redditPosts.length} posts`);

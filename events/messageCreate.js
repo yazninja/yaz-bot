@@ -7,6 +7,16 @@ import fetch from 'node-fetch';
 export const event = {
     name: "messageCreate",
     async execute(message) {
+        if(message.channel.id === "994805090084978788") {
+            consola.info("[SteamDB]", message);
+            await message.channel.send({embeds: [
+                new EmbedBuilder()
+                    .setColor('Random')
+                    .setTitle('SteamDB')
+                    .setDescription(message)
+                    .setTimestamp()
+            ]})
+        }
         if (message.author.bot) return;
         
         switch (message.content) {

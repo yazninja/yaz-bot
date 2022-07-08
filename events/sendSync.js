@@ -111,7 +111,7 @@ const sendReddit = async (channel) => {
         else {
             reddit = reddit.data.children;
             consola.success("[Reddit]", `Found ${reddit.length} posts`);
-            let regex = new RegExp("(free|100%)", "gi");
+            let regex = new RegExp("^(?=.*100%)(?=.*free).*$", "gi");
             let gameRegex = /(?=a)b/;
             let channelRegex = /(?=a)b/;
             if (games.length > 0) {
