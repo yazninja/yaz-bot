@@ -7,18 +7,23 @@ import fetch from 'node-fetch';
 export const event = {
     name: "messageCreate",
     async execute(message) {
-        if(message.channel.id === "994805090084978788") {
+        let { client } = await import('../index.js');
+        if (client.user.id !== message.author.id && message.channel.id === "994805090084978788") {
             consola.info("[SteamDB]", message);
-            await message.channel.send({embeds: [
-                new EmbedBuilder()
-                    .setColor('Random')
-                    .setTitle('SteamDB')
-                    .setDescription(message)
-                    .setTimestamp()
-            ]})
+            consola.info("[SteamDB Embed]", message.embeds[0].data);
+            await message.channel.send({
+                embeds: [
+                    new EmbedBuilder()
+                        .setColor('Random')
+                        .setTitle('SteamDB')
+                        .setDescription(Object.entries(message).map(entry => `${entry[0]}: ${entry[1]}`).join('\n'))
+                        .setFields({ name:'embeds', value: message.embeds == [] ? Object.entries(message.embeds[0]).map(entry => `${entry[0]}: ${entry[1]}`).join('\n') : 'NULL'})
+                        .setTimestamp()
+                ]
+            })
         }
         if (message.author.bot) return;
-        
+
         switch (message.content) {
             case 'fg add': //Add the channel to list of channels which free games are sent
                 addChannel(message);
@@ -181,7 +186,7 @@ const sendReddit = async (message) => {
 
 const addChannel = async (message) => {
     consola.info("[Add Channel]", `${message.author.tag} requested in ${message.channel.name}`);
-    try{
+    try {
         await mongo.addSyncChannel(message.guildId, message.channelId);
         message.reply("This Channel will now be receiving free game alerts\n> To see the current list of channels, use `fg active`\n> To unsubscribe from free game alerts, use `fg remove`");
     } catch (err) {
@@ -191,7 +196,7 @@ const addChannel = async (message) => {
 
 const removeChannel = async (message) => {
     consola.info("[Remove Channel]", `${message.author.tag} requested in ${message.channel.name}`);
-    try{
+    try {
         await mongo.removeSyncChannel(message.guildId, message.channelId);
         message.reply("This Channel will no longer be receiving free game alerts\n> To see the current list of channels, use `fg active`\n> To subscribe to free game alerts, use `fg add`");
     } catch (err) {
@@ -201,7 +206,7 @@ const removeChannel = async (message) => {
 
 const activeChannels = async (message) => {
     consola.info("[Active Channels]", `${message.author.tag} requested in ${message.channel.name}`);
-    try{
+    try {
         let channels = await mongo.getSyncChannels(message.guildId);
         if (channels != null && channels.length > 0) {
             let channelList = channels.map(channel => `<#${channel}>`).join('\n');

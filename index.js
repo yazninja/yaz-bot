@@ -1,4 +1,8 @@
 import { Client, GatewayIntentBits, Partials, Collection, ActivityType, resolveColor } from 'discord.js';
+import consola from 'consola';
+import 'dotenv/config';
+import { mongo } from './integrations/mongo.js';
+
 const client = new Client({
     intents: [
         GatewayIntentBits.Guilds, 
@@ -8,12 +12,9 @@ const client = new Client({
     ], 
     partials: [Partials.Channel, Partials.Message, Partials.User, Partials.GuildMember, Partials.Reaction] 
 });
-import consola from 'consola';
-import 'dotenv/config';
-import { mongo } from './integrations/mongo.js';
-
 client.commands = new Collection();
 client.events = [];
+export { client };
 
 import { readdirSync } from 'fs';
 const eventFiles = readdirSync('./events').filter(file => file.endsWith('.js'));

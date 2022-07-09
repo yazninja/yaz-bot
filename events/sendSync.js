@@ -10,7 +10,7 @@ export const event = {
         setInterval(async () => {
             var date = new Date();
             if (date.getMinutes() === 0) { // every hour
-                let res = fetch("https://playvalorant.com/page-data/en-us/news/tags/patch-notes/page-data.json")
+                let res = await fetch("https://playvalorant.com/page-data/en-us/news/tags/patch-notes/page-data.json")
                 res = await res.json();
                 if (res.result) {
                     if (res.result.data.articles.nodes[0] === await mongo.getValoPatch())
@@ -23,6 +23,7 @@ export const event = {
                 }
                 consola.info("[DEBUG]", `Found ${guilds.length} guilds`);
                 for (let guild of guilds) {
+                    consola.info("[DEBUG]", `Guild ${guild.name} : ${guild.id} found`);
                     const mongoChannels = await mongo.getSyncChannels(guild.id);
                     for (let channel of mongoChannels) {
                         channels.push(guild.channels.cache.get(channel));
