@@ -33,7 +33,7 @@ export const command = {
                         iconURL: 'https://logos-download.com/wp-content/uploads/2021/01/Valorant_Logo.png',
                         url: 'https://playvalorant.com/en-us/'
                     });
-                await interaction.editReply({ content: "[VALORANT] New Patch Detected", embeds: [embedMsg], ephemeral: !show });
+                await interaction.editReply({ content: "", embeds: [embedMsg], ephemeral: !show });
                 consola.success("[Valorant]", `Sent to ${interaction.user.tag} at ${interaction.channel.name}`);
             }
         } catch (err) { consola.error("[Valorant]", err); }

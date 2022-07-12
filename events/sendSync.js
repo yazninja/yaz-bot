@@ -19,7 +19,7 @@ export const event = {
                 const mongoGuilds = await mongo.getSyncGuilds();
 
                 for (let guild of mongoGuilds) {
-                    guilds.push(client.guilds.cache.get(guild.id));
+                    guilds.push( await client.guilds.cache.get(guild.id));
                 }
                 consola.info("[DEBUG]", `Found ${guilds.length} guilds`);
                 for (let guild of guilds) {
