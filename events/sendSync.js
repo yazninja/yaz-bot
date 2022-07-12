@@ -16,17 +16,19 @@ export const event = {
                     if (res.result.data.articles.nodes[0] === await mongo.getValoPatch())
                         sendValo = true;
                 } else { consola.error("[SendSync]", "Valorant servers ofline") }
-                const mongoGuilds = await mongo.getSyncGuilds();
 
+                const mongoGuilds = await mongo.getSyncGuilds();
                 for (let guild of mongoGuilds) {
-                    guilds.push( await client.guilds.cache.get(guild.id));
+                    guilds.push(await client.guilds.cache.get(guild.id));
                 }
                 consola.info("[DEBUG]", `Found ${guilds.length} guilds`);
                 for (let guild of guilds) {
-                    consola.info("[DEBUG]", `Guild ${guild.name} : ${guild.id} found`);
-                    const mongoChannels = await mongo.getSyncChannels(guild.id);
-                    for (let channel of mongoChannels) {
-                        channels.push(guild.channels.cache.get(channel));
+                    if (guild != null) {
+                        consola.info("[DEBUG]", `Guild ${guild.name} : ${guild.id} found`);
+                        const mongoChannels = await mongo.getSyncChannels(guild.id);
+                        for (let channel of mongoChannels) {
+                            channels.push(guild.channels.cache.get(channel));
+                        }
                     }
                 }
                 consola.info("[DEBUG]", `Found ${channels.length} channels`);
