@@ -91,10 +91,12 @@ const sendReddit = async (channel) => {
     let reddit;
     let redditPosts = [];
     let games = [];
+    let channels = [];
     let g = await mongo.getGamesbyGuildId(channel.guildId);
     if (g) {
         for (let game of g) {
             games.push(game.id);
+            channels.push(game.channel);
         }
     }
 
