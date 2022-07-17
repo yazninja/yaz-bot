@@ -2,6 +2,7 @@
 import consola from 'consola';
 import { EmbedBuilder } from 'discord.js';
 import { mongo } from '../integrations/mongo.js';
+import { helpEmbed, epicEmbed, redditEmbed } from '../utils/fetchFunctions.js';
 import fetch from 'node-fetch';
 
 export const event = {
@@ -17,7 +18,7 @@ export const event = {
                         .setColor('Random')
                         .setTitle('SteamDB')
                         .setDescription(Object.entries(message).map(entry => `${entry[0]}: ${entry[1]}`).join('\n'))
-                        .setFields({ name:'embeds', value: message.embeds == [] ? Object.entries(message.embeds[0]).map(entry => `${entry[0]}: ${entry[1]}`).join('\n') : 'NULL'})
+                        .setFields({ name: 'embeds', value: message.embeds == [] ? Object.entries(message.embeds[0]).map(entry => `${entry[0]}: ${entry[1]}`).join('\n') : 'NULL' })
                         .setTimestamp()
                 ]
             })
@@ -35,13 +36,16 @@ export const event = {
                 activeChannels(message);
                 break;
             case 'fg help': //Shows help info
-                helpInfo(message);
+                await message.channel.send({ embeds: [await helpEmbed(message.client.guilds.cache.size)] });
+                consola.success("[Help]", `Sent to ${message.author.tag} at ${message.channel.name}`);
                 break;
             case 'fg epic': //Send epic games to the current channel
-                sendEpicGames(message);
+                await message.channel.send({ embeds: [await epicEmbed()] });
+                consola.success("[Epic]", `Sent to ${message.author.tag} at ${message.channel.name}`);
                 break;
             case 'fg reddit': //Send epic games to the current channel
-                sendReddit(message);
+                await message.channel.send({ embeds: [await redditEmbed(message.guildId, message.channelId, false)] });
+                consola.success("[Reddit]", `Sent to ${message.author.tag} at ${message.channel.name}`);
                 break;
         }
     }

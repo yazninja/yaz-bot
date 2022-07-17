@@ -2,6 +2,7 @@ import { Client, GatewayIntentBits, Partials, Collection, ActivityType, resolveC
 import consola from 'consola';
 import 'dotenv/config';
 import { mongo } from './integrations/mongo.js';
+import { helpEmbed } from './utils/fetchFunctions.js';
 
 const client = new Client({
     intents: [
@@ -44,6 +45,10 @@ client.login(process.env.bot_token);
 client.on('messageCreate', async message => {
     await client.events.find(event => event.name === 'messageCreate').execute(message);
 });
+client.on('guildCreate', async guild => {
+    let embedMsg = await helpEmbed(client.guilds.cache.size);
+    guild.channels.cache.get(guild.systemChannelId).send({ content: "Thank you for inviting me into your server!", embeds: [embedMsg]});
+})
 
 client.on('interactionCreate', async interaction => {
     if (interaction.isChatInputCommand()) {

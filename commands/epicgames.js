@@ -1,6 +1,7 @@
 import { SlashCommandBuilder, EmbedBuilder } from 'discord.js';
 import consola from 'consola';
 import fetch from 'node-fetch';
+import { epicEmbed } from '../utils/fetchFunctions.js';
 
 export const command = {
     data: new SlashCommandBuilder()
@@ -14,32 +15,7 @@ export const command = {
         let show = interaction.options.getBoolean('show') || false;
         consola.info("[Epic Games]", `${interaction.user.tag} requested`);
         await interaction.reply({ content:"Scanning Epic Games...", ephemeral: !show });
-        const targetURL = "https://store-site-backend-static.ak.epicgames.com/freeGamesPromotions";
-        let currEpicGames = "";
-        let nextEpicGames = "";
-        try {
-            let res = await fetch(targetURL);
-            res = await res.json();
-            if (res.data) {
-                for (let element of res.data.Catalog.searchStore.elements) {
-                    if (element.promotions && element.promotions.promotionalOffers.length > 0) {
-                        currEpicGames += `[${element.title}](https://store.epicgames.com/en-US/p/${element.catalogNs.mappings[0].pageSlug}) | Started:<t:${Date.parse(element.promotions.promotionalOffers[0].promotionalOffers[0].startDate) / 1000}:R> | Ends:<t:${Date.parse(element.promotions.promotionalOffers[0].promotionalOffers[0].endDate) / 1000}:R>\n`;
-                    } else if (element.promotions && element.promotions.upcomingPromotionalOffers.length > 0) {
-                        nextEpicGames += `[${element.title}](https://store.epicgames.com/en-US/p/${element.catalogNs.mappings[0].pageSlug}) | Starts:<t:${Date.parse(element.promotions.upcomingPromotionalOffers[0].promotionalOffers[0].startDate) / 1000}:R> | Ends:<t:${Date.parse(element.promotions.upcomingPromotionalOffers[0].promotionalOffers[0].endDate) / 1000}:R>\n`;
-                    }
-                }
-            }
-        } catch (err) { consola.error("[Epic Games]", err); }
-        const embedMsg = new EmbedBuilder()
-            .setColor('Random')
-            .setTitle('EpicGames')
-            .setFields([{ name: "Current Free Games", value: currEpicGames }, { name: "Upcoming Free Games", value: nextEpicGames }])
-            .setTimestamp()
-            .setAuthor({
-                name: 'FreeGamesBot',
-                iconURL: 'https://raw.githubusercontent.com/yazninja/discord-fg-bot/main/assets/bot%20icon.png',
-                url: 'https://github.com/yazninja/discord-fg-bot'
-            });
+        const embedMsg = await epicEmbed();
         await interaction.editReply({ content: " ", embeds: [embedMsg], ephemeral: !show });
         consola.success("[Epic Games]", `Sent to ${interaction.user.tag} at ${interaction.channel.name}`);
     }
