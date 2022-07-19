@@ -132,7 +132,8 @@ const sendReddit = async (channel) => {
                         title = title.substring(0, 256);
                     }
                     let thumbnail;
-                    if (reddit[i].data.thumbnail === 'default' || reddit[i].data.thumbnail === 'self') { // no thumbnail from reddit
+                    if (post.data.thumbnail === 'default' || post.data.thumbnail === 'self' || post.data.thumbnail === 'nsfw' || post.data.thumbnail === 'spoiler') { // no thumbnail from reddit
+                        
                         thumbnail = 'https://www.reddit.com/static/noimage.png';
                     } else {
                         thumbnail = reddit[i].data.thumbnail;
@@ -143,6 +144,7 @@ const sendReddit = async (channel) => {
                         .setURL(`https://www.reddit.com${reddit[i].data.permalink}`)
                         .setDescription(`Free game here: ${reddit[i].data.url}`)
                         .setImage(thumbnail)
+                        
                         .setAuthor({
                             name: 'FreeGamesBot',
                             iconURL: 'https://raw.githubusercontent.com/yazninja/discord-fg-bot/main/assets/bot%20icon.png',
