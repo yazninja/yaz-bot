@@ -1,7 +1,23 @@
+import { default as tunnel } from 'tunnel-ssh';
 import { MongoClient } from 'mongodb';
 import 'dotenv/config'
-const client = new MongoClient(process.env.mongo);
 
+if (process.env.NODE_ENV === 'development') {
+    tunnel({
+        username: process.env.SSH_USER,
+        host: process.env.SSH_HOST,
+        port: process.env.SSH_PORT,
+        password: process.env.SSH_PASS,
+        dstHost: process.env.SSH_DST_HOST,
+        dstPort: process.env.SSH_DST_PORT,
+        localHost: process.env.SSH_LOCAL_HOST,
+        localPort: process.env.SSH_LOCAL_PORT,
+    }, function (error, server) {
+        if (error) { return console.log(error); }
+        console.log(`[SSH] Successfully Connected to ${server.address().address} @ ${server.address().port}`);
+    });
+}
+const client = new MongoClient(process.env.mongo);
 export const mongo = {
     async init() {
         await client.connect();
@@ -31,7 +47,7 @@ export const mongo = {
     async getSyncChannels(guildId) {
         try {
             const guild = await client.db('fgbot').collection('sync').findOne({ id: guildId })
-            if(guild) return guild.channels
+            if (guild) return guild.channels
             return null;
         } catch (e) {
             consola.error("\x1b[33m%s\x1b[0m", '[mongo]', 'Not Available. \n' + e)
@@ -53,7 +69,7 @@ export const mongo = {
             consola.error("\x1b[33m%s\x1b[0m", '[mongo]', 'Not Available. \n' + e)
         }
     },
-    async setValoPatch(valoUID){
+    async setValoPatch(valoUID) {
         try {
             await client.db('fgbot').collection('valo').updateOne({}, { $set: { currpatch: valoUID } }, { upsert: true })
         } catch (e) {

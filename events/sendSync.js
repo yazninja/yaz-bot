@@ -15,6 +15,7 @@ export const event = {
                 if (res.result) {
                     if (res.result.data.articles.nodes[0] === await mongo.getValoPatch())
                         sendValo = true;
+                        mongo.setValoPatch(res.result.data.articles.nodes[0].uid);
                 } else { consola.error("[SendSync]", "Valorant servers offline") }
 
                 const mongoGuilds = await mongo.getSyncGuilds();

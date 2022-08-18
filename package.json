@@ -25,7 +25,8 @@
     "discord-api-types": "^0.37.2",
     "discord.js": "^14.2.0",
     "mongodb": "^4.8.1",
-    "node-fetch": "^3.2.10"
+    "node-fetch": "^3.2.10",
+    "tunnel-ssh": "^4.1.6"
   },
   "devDependencies": {
     "dotenv": "^16.0.1",

@@ -121,7 +121,6 @@ export const valoEmbed = async function () {
         let res = await fetch(targetURL);
         res = await res.json();
         if (res.result) {
-            mongo.getValoPatch();
             let currpatch = res.result.data.articles.nodes[0];
             const embedMsg = new EmbedBuilder()
                 .setColor('Random')
