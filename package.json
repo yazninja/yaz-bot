@@ -5,8 +5,9 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node deploy-commands.js && node index.js",
-    "dev": "nodemon index.js"
+    "deploy": "node deploy-commands.js",
+    "start": "yarn deploy && node .",
+    "dev": "nodemon ."
   },
   "repository": {
     "type": "git",
@@ -19,13 +20,15 @@
   },
   "homepage": "https://github.com/yazninja/discord-fg-bot#readme",
   "dependencies": {
-    "@discordjs/rest": "^1.0.0",
+    "@discordjs/rest": "^1.0.1",
     "consola": "^2.15.3",
-    "discord-api-types": "^0.36.2",
-    "discord.js": "^14.0.2",
+    "discord-api-types": "^0.37.2",
+    "discord.js": "^14.2.0",
+    "mongodb": "^4.8.1",
+    "node-fetch": "^3.2.10"
+  },
+  "devDependencies": {
     "dotenv": "^16.0.1",
-    "mongodb": "^4.8.0",
-    "node-fetch": "^3.2.9",
     "nodemon": "^2.0.19"
   }
 }

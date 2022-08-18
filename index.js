@@ -40,8 +40,6 @@ client.on('ready', () => {
     client.user.setActivity('fg help', { type: ActivityType.Listening });
     
 });
-client.login(process.env.bot_token);
-
 client.on('messageCreate', async message => {
     await client.events.find(event => event.name === 'messageCreate').execute(message);
 });
@@ -76,3 +74,4 @@ process.on('uncaughtException', error => {
     let errorEmbed = { color: resolveColor('Red'), title: "Error", description: `${error.name}`, fields: [{ name: 'Message', value: `${error.message}` }, { name: 'Origin', value: `${error.stack}` }] }
     client.channels.cache.get(errorChannel).send({ content: `Uncaught Exception`, embeds: [errorEmbed] })
 });
+await client.login(process.env.bot_token);
