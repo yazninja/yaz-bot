@@ -133,7 +133,7 @@ const sendReddit = async (channel) => {
                         title = title.substring(0, 256);
                     }
                     let thumbnail;
-                    if (post.data.thumbnail === 'default' || post.data.thumbnail === 'self' || post.data.thumbnail === 'nsfw' || post.data.thumbnail === 'spoiler') { // no thumbnail from reddit
+                    if (reddit[i].data.thumbnail === 'default' || reddit[i].data.thumbnail === 'self' || reddit[i].data.thumbnail === 'nsfw' || reddit[i].data.thumbnail === 'spoiler') { // no thumbnail from reddit
                         
                         thumbnail = 'https://www.reddit.com/static/noimage.png';
                     } else {
