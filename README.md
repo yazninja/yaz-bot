@@ -1,4 +1,4 @@
-<h1 align="center">Free Games Discord Bot</h1>
+<h1 align="center">Yaz Bot</h1>
 <p align="center">
   <img src="https://img.shields.io/github/package-json/v/yazninja/discord-fg-bot?style=for-the-badge">
   <img src="https://dcbadge.vercel.app/api/shield/985786630923239465?bot=true&theme=clean-inverted">
